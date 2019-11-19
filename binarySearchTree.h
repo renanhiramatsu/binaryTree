@@ -6,11 +6,10 @@ template <typename T>
 class BinaryTree {
 private:
 
-	struct TreeNode {
+	struct TreeNode : public BinaryTree {
 		T data;
 		TreeNode* left;
 		TreeNode* right;
-		void insert(TreeNode* &, TreeNode* &);
 
 	};
 
@@ -32,6 +31,9 @@ private:
 
 public:
 	void displayInOrder() const { displayInOrder(root); }
+	void displayPreOrder() const { displayPreOrder(root); }
+	void displayPostOrder() const { displayPostOrder(root); }
+
 	void insertNode(T&);
 
 
@@ -105,7 +107,7 @@ void BinaryTree<T>::displayInOrder(TreeNode *nodePtr) const
 	if (nodePtr)
 	{
 		displayInOrder(nodePtr->left);
-		std::cout << nodePtr->value << std::endl;
+		std::cout << nodePtr->data << std::endl;
 		displayInOrder(nodePtr->right);
 	}
 
@@ -119,7 +121,7 @@ void BinaryTree<T>::displayPreOrder(TreeNode *nodePtr) const
 {
 	if (nodePtr)
 	{
-		std::cout << nodePtr->value << std::endl;
+		std::cout << nodePtr->data << std::endl;
 		displayPreOrder(nodePtr->left);
 		displayPreOrder(nodePtr->right);
 	}
@@ -136,7 +138,7 @@ void BinaryTree<T>::displayPostOrder(TreeNode *nodePtr) const
 	{
 		displayPostOrder(nodePtr->left);
 		displayPostOrder(nodePtr->right);
-		std::cout << nodePtr->value << std::endl;
+		std::cout << nodePtr->data << std::endl;
 	}
 
 }
