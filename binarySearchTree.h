@@ -1,5 +1,5 @@
 #pragma once
-#include "pple.h"
+#include "people.h"
 //#include "treeNode.h"
 
 template <typename T>
@@ -28,11 +28,15 @@ private:
 	void displayInOrder(TreeNode *) const;
 	void displayPreOrder(TreeNode *) const;
 	void displayPostOrder(TreeNode *) const;
+	void displayBreadthFirst(TreeNode *) const;
+
 
 public:
 	void displayInOrder() const { displayInOrder(root); }
 	void displayPreOrder() const { displayPreOrder(root); }
 	void displayPostOrder() const { displayPostOrder(root); }
+	void displayBreadthFirst() const { displayBreadthFirst(root); }
+
 
 	void insertNode(T&);
 
@@ -52,13 +56,7 @@ public:
 
 //// creating new node and allocating dynamically
 //template <typename T>
-//BinaryTree<T>::TreeNode *getNewNode(T& data)
-//{
-//	TreeNode* newNode = new TreeNode;
-//	newNode->data = data;
-//	newNode->left = newNode->right = nullptr;
-//	return newNode;
-//};
+
 
 
 // It searches for the appropriate location in the subtree to insert the node, then makes the insertion.
@@ -133,6 +131,21 @@ void BinaryTree<T>::displayPreOrder(TreeNode *nodePtr) const
 // DDisplays the values in the subtree pointed to by nodePtr, via postorder traversal.
 template <typename T>
 void BinaryTree<T>::displayPostOrder(TreeNode *nodePtr) const
+{
+	if (nodePtr)
+	{
+		displayPostOrder(nodePtr->left);
+		displayPostOrder(nodePtr->right);
+		std::cout << nodePtr->data << std::endl;
+	}
+
+}
+
+
+
+// DDisplays the values in the subtree pointed to by nodePtr, via breadth-first traversal.
+template <typename T>
+void BinaryTree<T>::displayBreadthFirst(TreeNode *nodePtr) const
 {
 	if (nodePtr)
 	{

@@ -2,8 +2,7 @@
 #include <fstream>
 #include <string>
 #include "binarySearchTree.h"
-#include "pple.h"
-//#include "treeNode.h"
+#include "people.h"
 
 using namespace std;
 
@@ -26,7 +25,7 @@ sketch:
 
 */
 
-
+	Person me;
 
 	BinaryTree<string> birthTree;
 	BinaryTree<string> nameTree;
@@ -38,18 +37,25 @@ sketch:
 	outfile_n.open("NamesOutput.txt");
 	outfile_b.open("BirthdaysOutput.txt");
 
-	int i;
-	string birthStr[99], nameStr[99];
+	string birthStr[99], nameStr[99], filePath;
 
+	int i, opt;
 
-	//cout << "Please insert the path for the InputFile.txt file: ";
+	cout << "Press (1) to type the input file path or (2) to use the project folder file:\n";
+	cin >> opt;
+	cin.ignore();
 
-	infile.open(fileName);					// TODO: ADD DIRECT PATH
+	if (opt == 1) {
+		cout << "Please insert the path for the InputFile.txt file: ";
+		getline(cin, filePath);
+	}
+	else
+		filePath = fileName;
+
+	infile.open(filePath);			
+
 	if (infile.is_open()) {
-		for (i = 0; !infile.eof(); i++) {			//somehow has to read two consecutive lines since name->birthday IDK HOW THO
-			//std::string line;
-			//getline(infile, line);
-
+		for (i = 0; !infile.eof(); i++) {	
 			getline(infile, nameStr[i]);
 			getline(infile, birthStr[i]);
 
