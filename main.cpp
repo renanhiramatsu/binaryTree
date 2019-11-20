@@ -15,10 +15,6 @@ int main() {
 	BinaryTree<Person> birthTree;
 	BinaryTree<Person> nameTree;
 
-	Person me;
-	me.setBirthYMD(1998, 05, 15);
-
-
 	string name;
 	ifstream infile;
 	ofstream outfile_n, outfile_b;
@@ -26,7 +22,8 @@ int main() {
 	outfile_n.open("NamesOutput.txt");
 	outfile_b.open("BirthdaysOutput.txt");
 
-	string birthStr[99], nameStr[99], filePath;
+	Person someone[99];
+	string birthStr[99], fnameStr[99], lnameStr[99], filePath;
 
 	int i, opt;
 
@@ -45,8 +42,15 @@ int main() {
 
 	if (infile.is_open()) {
 		for (i = 0; !infile.eof(); i++) {
-			getline(infile, nameStr[i]);
+
+			// reads fname and lname from file and store in data members
+			getline(infile, fnameStr[i], ' ');
+			getline(infile, lnameStr[i], '\n');
+			someone[i].setName(fnameStr[i], lnameStr[i]);
+
+			// reads birthday and stores it
 			getline(infile, birthStr[i]);
+			someone[i].setBirthDate(birthStr[i]);
 
 		}
 
@@ -56,9 +60,9 @@ int main() {
 		cout << "================= Names File =================" << endl;
 
 		for (int j = 0; j < i; j++) {
-			cout << "Name: " << nameStr[j] << "\tBirthday: " << birthStr[j] << endl;
-			outfile_n << "Name: " << nameStr[j] << "\tBirthday: " << birthStr[j] << endl;
-			nameTree.insertNode(me);
+			cout << "Name: " << fnameStr[j] << "\tBirthday: " << birthStr[j] << endl;
+			outfile_n << "Name: " << fnameStr[j] << "\tBirthday: " << birthStr[j] << endl;
+			nameTree.insertNode(someone[j]);
 		}
 
 		cout << "*************** Pre-Order for Names *************** " << endl;
@@ -72,7 +76,7 @@ int main() {
 		cout << "*************** Post-Order for names *************** " << endl;
 		outfile_n << "\nPost-Order Names: " << endl;
 
-		nameTree.displayPostOrder();
+		//nameTree.displayPostOrder();
 		//noufile << nameTree.ouPreorder();
 
 		//nameTree.ouEmpty();
@@ -87,8 +91,8 @@ int main() {
 
 
 		for (int j = 0; j < i; j++) {
-			cout << "Name: " << nameStr[j] << "\tBirthday: " << birthStr[j] << endl;
-			outfile_b << "Name: " << nameStr[j] << "\tBirthday: " << birthStr[j] << endl;
+			cout << "Name: " << fnameStr[j] << "\tBirthday: " << birthStr[j] << endl;
+			outfile_b << "Name: " << fnameStr[j] << "\tBirthday: " << birthStr[j] << endl;
 			//birthTree.insertNode(birthStr[j]);
 		}
 

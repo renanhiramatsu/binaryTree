@@ -7,29 +7,35 @@ class BinaryTree {
 private:
 
 	struct TreeNode : public BinaryTree {
-		T data;
+		Person data;
 		TreeNode* left;
 		TreeNode* right;
 
 	};
 
 	TreeNode* root;
-	TreeNode* getNewNode(T& data)
-	
-		{
-			TreeNode* newNode = new TreeNode;
-			newNode->data = data;
-			newNode->left = newNode->right = nullptr;
-			return newNode;
-		};
-	
+	TreeNode* getNewNode(Person& data)
+	{
+		TreeNode* newNode = new TreeNode;
+		newNode->data = data;
+		newNode->left = newNode->right = nullptr;
+		return newNode;
+	};
+
+	friend struct TreeNode;
+	friend class Person;
 
 	void insert(TreeNode* &, TreeNode* &);
+
+
 	void displayInOrder(TreeNode *) const;
 	void displayPreOrder(TreeNode *) const;
 	void displayPostOrder(TreeNode *) const;
 	void displayBreadthFirst(TreeNode *) const;
 
+
+
+	//	BinaryTree<T> operator<(const BinaryTree& *);
 
 public:
 	void displayInOrder() const { displayInOrder(root); }
@@ -38,7 +44,7 @@ public:
 	void displayBreadthFirst() const { displayBreadthFirst(root); }
 
 
-	void insertNode(T&);
+	void insertNode(Person&);
 
 
 	BinaryTree<T>();
@@ -54,9 +60,6 @@ public:
 
 
 
-//// creating new node and allocating dynamically
-//template <typename T>
-
 
 
 // It searches for the appropriate location in the subtree to insert the node, then makes the insertion.
@@ -66,12 +69,17 @@ void BinaryTree<T>::insert(TreeNode* &nodePtr, TreeNode* &newNode)
 	if (!nodePtr)
 		nodePtr = newNode;
 
-	else if (newNode->data < nodePtr->data)
+	else if (newNode->TreeNode::data.getBirthdate() < nodePtr->TreeNode::data.getBirthdate())
 		insert(nodePtr->left, newNode);
-
 	else
 		insert(nodePtr->right, newNode);
+
+
+	/*else if (newNode->TreeNode::data.getFirstName() < nodePtr->TreeNode::data.getFirstName())
+		insert(nodePtr->left, newNode);*/
 }
+
+
 
 
 // default constructor
@@ -83,16 +91,16 @@ template <typename T>
 BinaryTree<T>::~BinaryTree<T>() { std::cout << "destructor called" << std::endl; } //TODO: destroySubTree func
 
 
-// Insert a node into the tree.
+																				   // Insert a node into the tree.
 template <typename T>
-void BinaryTree<T>::insertNode(T& data)
+void BinaryTree<T>::insertNode(Person& data)
 {
 	// Create a new node and store num in it.
 	TreeNode* newNode = new TreeNode;
 	newNode->data = data;
 	newNode->left = newNode->right = nullptr;   // leaf nodes
 
-	// Insert the node.
+												// Insert the node.
 	root->insert(root, newNode);
 }
 
@@ -105,7 +113,7 @@ void BinaryTree<T>::displayInOrder(TreeNode *nodePtr) const
 	if (nodePtr)
 	{
 		displayInOrder(nodePtr->left);
-		std::cout << nodePtr->data << std::endl;
+		//std::cout << nodePtr->data << std::endl;
 		displayInOrder(nodePtr->right);
 	}
 
@@ -119,7 +127,9 @@ void BinaryTree<T>::displayPreOrder(TreeNode *nodePtr) const
 {
 	if (nodePtr)
 	{
-		std::cout << nodePtr->data << std::endl;
+		std::cout << nodePtr->TreeNode::data.getFirstName() << " "
+				  << nodePtr->TreeNode::data.getLastName() << std::endl;
+
 		displayPreOrder(nodePtr->left);
 		displayPreOrder(nodePtr->right);
 	}
@@ -136,7 +146,8 @@ void BinaryTree<T>::displayPostOrder(TreeNode *nodePtr) const
 	{
 		displayPostOrder(nodePtr->left);
 		displayPostOrder(nodePtr->right);
-		std::cout << nodePtr->data << std::endl;
+		std::cout << nodePtr->TreeNode::data.getFirstName() << " "
+			<< nodePtr->TreeNode::data.getLastName() << std::endl;
 	}
 
 }
