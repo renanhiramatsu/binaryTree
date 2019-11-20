@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 #include "binarySearchTree.h"
-#include "people.h"
+#include "person.h"
 
 using namespace std;
 
@@ -11,24 +11,13 @@ const string fileName = "InputFile.txt";
 
 int main() {
 
-/*
 
-sketch:
-		100                             
-		/ \        
-		20     500    
-		/ \ / \
-		10   30                           
-		\
-		40
-
-
-*/
+	BinaryTree<Person> birthTree;
+	BinaryTree<Person> nameTree;
 
 	Person me;
+	me.setBirthYMD(1998, 05, 15);
 
-	BinaryTree<string> birthTree;
-	BinaryTree<string> nameTree;
 
 	string name;
 	ifstream infile;
@@ -52,71 +41,71 @@ sketch:
 	else
 		filePath = fileName;
 
-	infile.open(filePath);			
+	infile.open(filePath);
 
 	if (infile.is_open()) {
-		for (i = 0; !infile.eof(); i++) {	
+		for (i = 0; !infile.eof(); i++) {
 			getline(infile, nameStr[i]);
 			getline(infile, birthStr[i]);
 
 		}
 
 
-	//-------------------------------------  NAME FILE INPUT (pre & post) ------------------------------//
-	outfile_n << "================= Names File =================" << endl;
-	cout << "================= Names File =================" << endl;
+		//-------------------------------------  NAME FILE INPUT (pre & post) ------------------------------//
+		outfile_n << "================= Names File =================" << endl;
+		cout << "================= Names File =================" << endl;
 
-	for (int j = 0; j < i; j++) {
-		cout << "Name: " << nameStr[j] << "\tBirthday: " << birthStr[j] << endl;
-		outfile_n << "Name: " << nameStr[j] << "\tBirthday: " << birthStr[j] << endl;
-		nameTree.insertNode(nameStr[j]);
-	}
+		for (int j = 0; j < i; j++) {
+			cout << "Name: " << nameStr[j] << "\tBirthday: " << birthStr[j] << endl;
+			outfile_n << "Name: " << nameStr[j] << "\tBirthday: " << birthStr[j] << endl;
+			nameTree.insertNode(me);
+		}
 
-	cout << "*************** Pre-Order for Names *************** " << endl;
-	outfile_n << "Pre-Order Names: " << endl;
+		cout << "*************** Pre-Order for Names *************** " << endl;
+		outfile_n << "Pre-Order Names: " << endl;
 
-	nameTree.displayPreOrder();
-	//outfile_n << nameTree.displayPreOrder();		//overload <<
+		nameTree.displayPreOrder();
+		//outfile_n << nameTree.displayPreOrder();		//overload <<
 
-	//nameTree.ouEmpty(); //empty string
+		//nameTree.ouEmpty(); //empty string
 
-	cout << "*************** Post-Order for names *************** " << endl;
-	outfile_n << "\nPost-Order Names: " << endl;
+		cout << "*************** Post-Order for names *************** " << endl;
+		outfile_n << "\nPost-Order Names: " << endl;
 
-	nameTree.displayPostOrder();
-	//noufile << nameTree.ouPreorder();
+		nameTree.displayPostOrder();
+		//noufile << nameTree.ouPreorder();
 
-	//nameTree.ouEmpty();
-
-
+		//nameTree.ouEmpty();
 
 
 
-	//-------------------------------------  BIRTHDAY FILE INPUT (in-order)------------------------------//
-	outfile_b << "================= Birthday File =================" << endl;
-	cout << "================= Birthday File =================" << endl;
 
 
-	for (int j = 0; j < i; j++) {
-		cout << "Name: " << nameStr[j] << "\tBirthday: " << birthStr[j] << endl;
-		outfile_b << "Name: " << nameStr[j] << "\tBirthday: " << birthStr[j] << endl;
-		birthTree.insertNode(birthStr[j]);
-	}
+		//-------------------------------------  BIRTHDAY FILE INPUT (in-order)------------------------------//
+		outfile_b << "================= Birthday File =================" << endl;
+		cout << "================= Birthday File =================" << endl;
 
 
-	cout << "*************** In-Order for Birthdays *************** " << endl;
-	outfile_b << "In-Order Birthdays: " << endl;
+		for (int j = 0; j < i; j++) {
+			cout << "Name: " << nameStr[j] << "\tBirthday: " << birthStr[j] << endl;
+			outfile_b << "Name: " << nameStr[j] << "\tBirthday: " << birthStr[j] << endl;
+			//birthTree.insertNode(birthStr[j]);
+		}
 
-	birthTree.displayInOrder();
-	//outfile_b << birthTree.ouInorder();
 
-	//birthTree.ouEmpty();
+		cout << "*************** In-Order for Birthdays *************** " << endl;
+		outfile_b << "In-Order Birthdays: " << endl;
 
-	cout << "*************** Breadth-First for Birthdays: ***************" << endl;
-	outfile_b << "\nBreadth-First Birthdays: " << endl;
+		birthTree.displayInOrder();
+		//outfile_b << birthTree.ouInorder();
 
-	//birthTree.printBFirst();
-	//outfile_b << birthTree.ouBFirst();
+		//birthTree.ouEmpty();
+
+		cout << "*************** Breadth-First for Birthdays: ***************" << endl;
+		outfile_b << "\nBreadth-First Birthdays: " << endl;
+
+		//birthTree.printBFirst();
+		//outfile_b << birthTree.ouBFirst();
 
 
 		infile.close();
@@ -129,4 +118,6 @@ sketch:
 	outfile_n.close();
 
 	system("pause");
+
+
 }
