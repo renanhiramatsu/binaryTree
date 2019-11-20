@@ -1,19 +1,18 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "binarySearchTree.h"
+#include "binaryTree.h"
 #include "person.h"
 
 using namespace std;
 
-const int BIRTHLENGTH = 10;	//yyyy-mm-dd has total length of 10 (idk if we can do that)
 const string fileName = "InputFile.txt";
 
 int main() {
 
 
-	BinaryTree<Person> birthTree;
-	BinaryTree<Person> nameTree;
+	BinaryTree<Person> birthTree("birthday");
+	BinaryTree<Person> nameTree("name");
 
 	string name;
 	ifstream infile;
@@ -40,6 +39,7 @@ int main() {
 
 	infile.open(filePath);
 
+
 	if (infile.is_open()) {
 		for (i = 0; !infile.eof(); i++) {
 
@@ -62,7 +62,7 @@ int main() {
 		for (int j = 0; j < i; j++) {
 			cout << "Name: " << fnameStr[j] << "\tBirthday: " << birthStr[j] << endl;
 			outfile_n << "Name: " << fnameStr[j] << "\tBirthday: " << birthStr[j] << endl;
-			nameTree.insertNode(someone[j]);
+			nameTree.insertNode(someone[j], "name");
 		}
 
 		cout << "*************** Pre-Order for Names *************** " << endl;
@@ -76,7 +76,7 @@ int main() {
 		cout << "*************** Post-Order for names *************** " << endl;
 		outfile_n << "\nPost-Order Names: " << endl;
 
-		//nameTree.displayPostOrder();
+		nameTree.displayPostOrder();
 		//noufile << nameTree.ouPreorder();
 
 		//nameTree.ouEmpty();
@@ -93,7 +93,7 @@ int main() {
 		for (int j = 0; j < i; j++) {
 			cout << "Name: " << fnameStr[j] << "\tBirthday: " << birthStr[j] << endl;
 			outfile_b << "Name: " << fnameStr[j] << "\tBirthday: " << birthStr[j] << endl;
-			//birthTree.insertNode(birthStr[j]);
+			birthTree.insertNode(someone[j], "birthday");
 		}
 
 
@@ -107,7 +107,7 @@ int main() {
 
 		cout << "*************** Breadth-First for Birthdays: ***************" << endl;
 		outfile_b << "\nBreadth-First Birthdays: " << endl;
-
+		birthTree.displayBreadthFirst();
 		//birthTree.printBFirst();
 		//outfile_b << birthTree.ouBFirst();
 
