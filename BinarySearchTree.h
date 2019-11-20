@@ -25,7 +25,9 @@ private:
 	friend struct TreeNode;
 	friend class Person;
 
-	void insert(TreeNode* &, TreeNode* &);
+	void insertBirth(TreeNode* &, TreeNode* &);
+	void insertName(TreeNode* &, TreeNode* &);
+
 
 	void displayInOrder(TreeNode *) const;
 	void displayPreOrder(TreeNode *) const;
@@ -63,12 +65,25 @@ public:
 
 // It searches for the appropriate location in the subtree to insert the node, then makes the insertion.
 template <typename T>
-void BinaryTree<T>::insert(TreeNode* &nodePtr, TreeNode* &newNode)
+void BinaryTree<T>::insertBirth(TreeNode* &nodePtr, TreeNode* &newNode)
 {
 	if (!nodePtr)
 		nodePtr = newNode;
 
 	else if (newNode->TreeNode::data.getBirthdate() < nodePtr->TreeNode::data.getBirthdate())
+		insertBirth(nodePtr->left, newNode);
+	else
+		insertBirth(nodePtr->right, newNode);
+}
+
+
+template <typename T>
+void BinaryTree<T>::insertName(TreeNode* &nodePtr, TreeNode* &newNode)
+{
+	if (!nodePtr)
+		nodePtr = newNode;
+
+	else if (newNode->TreeNode::data.getFirstName() < nodePtr->TreeNode::data.getFirstName())
 		insert(nodePtr->left, newNode);
 	else
 		insert(nodePtr->right, newNode);
@@ -94,7 +109,7 @@ void BinaryTree<T>::insertNode(Person& data)
 	newNode->left = newNode->right = nullptr;   // leaf nodes
 
 												// Insert the node.
-	root->insert(root, newNode);
+	root->insertBirth(root, newNode);
 }
 
 
