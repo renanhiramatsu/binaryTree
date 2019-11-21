@@ -5,7 +5,6 @@ class Person {
 private:
 	std::string fName;
 	std::string lName;
-	std::string fullName;
 	std::string birthday;
 
 public:
@@ -22,16 +21,16 @@ public:
 	std::string getBirthdate();
 	std::string getFirstName();
 	std::string getLastName();
-	std::string getFullName();
 };
+
+//default constructor
 Person::Person() {
 	fName = " ";
 	lName = " ";
-	fullName = " ";
 	birthday = " ";
 }
 
-
+//overloaded constructor
 Person::Person(std::string name, std::string bday) {
 	std::cout << bday << std::endl;
 	int pos1;
@@ -40,7 +39,6 @@ Person::Person(std::string name, std::string bday) {
 	fName = name.substr(0, pos1);
 	lName = name.substr(pos1 + 1, l - pos1);
 
-	fullName = name;
 	birthday = bday;
 }
 
@@ -53,8 +51,7 @@ void Person::setBirthDate(std::string bday) {
 	birthday = bday;
 }
 
-
+//getter definitions
 std::string Person::getBirthdate() { return birthday; }
 std::string Person::getFirstName() { return fName; }
 std::string Person::getLastName() { return lName; }
-std::string Person::getFullName() { return fullName; }
