@@ -1,15 +1,14 @@
 #include <iostream>
 #include <fstream>
-#include <string>
+
 #include "binaryTree.h"
 #include "person.h"
-
+#include <string>
 using namespace std;
 
 const string fileName = "InputFile.txt";
 
 int main() {
-
 
 	BinaryTree<Person> birthTree("birthday");
 	BinaryTree<Person> nameTree("name");
@@ -107,7 +106,7 @@ int main() {
 
 		cout << "*************** Breadth-First for Birthdays: ***************" << endl;
 		outfile_b << "\nBreadth-First Birthdays: " << endl;
-		birthTree.displayBreadthFirst();
+		//birthTree.displayBreadthFirst();
 		//birthTree.printBFirst();
 		//outfile_b << birthTree.ouBFirst();
 
