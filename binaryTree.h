@@ -98,7 +98,7 @@ BinaryTree<T> ::BinaryTree<T>(std::string type) {
 template <typename T>
 BinaryTree<T>::~BinaryTree<T>() {
 	destroySubTree(root);
-	std::cout << "destructor called" << std::endl;
+	//std::cout << "destructor called" << std::endl;
 }
 
 
@@ -305,15 +305,23 @@ void BinaryTree<T>::removeNode(T& data) {
 // to completely delete the node from the binary tree
 //***************************************************************************************
 
+//if (val.getFirstName() < nodePtr->data.getFirstName() && val.getLastName() < nodePtr->data.getLastName())
 template <typename T>
 void BinaryTree<T>::deleteNode(T val, TreeNode<T>*& nodePtr) {
-
-	if (val.getFullName() < nodePtr->TreeNode<T>::data.getFullName())
+	TreeNode<T>* temp = root;
+	if (val.getFullName() < nodePtr->data.getFullName())
 		deleteNode(val, nodePtr->left);
-	else if (val.getFullName() > nodePtr->TreeNode<T>::data.getFullName())
+	else if (val.getFullName() > nodePtr->data.getFullName())
 		deleteNode(val, nodePtr->right);
-	else
-		completeDelete(nodePtr);
+	else {
+		if (val.getFullName() == nodePtr->data.getFullName()) {
+			completeDelete(nodePtr);
+			std::cout << val.getFullName() << " was found and has been removed" << std::endl;
+
+		}
+		else
+			std::cout << val.getFullName() << " was not found" << std::endl;
+	}
 }
 
 
@@ -363,8 +371,7 @@ void BinaryTree<T>::completeDelete(TreeNode<T>*& nodePtr) {
 	}
 	if (d == false)
 		std::cout << "data not within tree" << std::endl;
-	else
-		std::cout << "ye" << std::endl;
+	
 }
 
 
@@ -379,7 +386,7 @@ void BinaryTree<T>::completeDelete(TreeNode<T>*& nodePtr) {
 template <typename T>
 void BinaryTree<T>::destroySubTree(TreeNode<T>* nodePtr) {
 	if (nodePtr) {
-		std::cout << "inside subtree destructor! " << std::endl;
+		//std::cout << "inside subtree destructor! " << std::endl;
 		if (nodePtr->left)
 			destroySubTree(nodePtr->left);
 		if (nodePtr->right)
@@ -413,10 +420,10 @@ void BinaryTree<T>::destroySubTree(TreeNode<T>* nodePtr) {
 //}
 template <typename T>
 bool BinaryTree<T>::searchNode(T& val) {
-	TreeNode<T>* nodeIter = getRoot();
+	TreeNode<T>* nodeIter =root;
 	while (nodeIter)
 	{
-		if(nodeIter->data.getFullName() == val.getFullName() ) {
+		if(nodeIter->data.getFullName() == val.getFullName()) {
 			std::cout << "Entry was found!" << std::endl;
 			return true;
 		}
